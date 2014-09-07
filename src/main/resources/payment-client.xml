@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd ">
+
+	<!-- 
+	<int:gateway id="paymentGateway"
+		service-interface="com.folionmedia.payment.server.api.PaymentService">
+		<int:method name="requestHostedEndpoint" request-channel="requestHostedEndpointChannel">
+			<int:header name="RESPONSE_TYPE" value="BEST" />
+		</int:method>
+	</int:gateway>
+
+	<int:channel id="requestHostedEndpointChannel" />
+
+	<int:chain input-channel="requestHostedEndpointChannel">
+		<int:object-to-json-transformer />
+		
+		<int-jms:outbound-gateway id="hotDrinksBarista"
+			request-channel="requestHostedEndpoint2Channel" 
+			reply-channel="preparedJsonDrinks"
+			request-destination="requestQueue" 
+			receive-timeout="30000"
+			reply-timeout="30000">
+		<int-jms:reply-listener />
+		</int-jms:outbound-gateway>
+		
+		<int:json-to-object-transformer type="com.folionmedia.payment.server.api.PaymentResponse"/>
+	</int:chain>
+	 -->
+
+	<bean id="paymentService" class="org.springframework.jms.remoting.JmsInvokerProxyFactoryBean">
+		<property name="serviceInterface" value="com.folionmedia.payment.server.api.PaymentService" />
+		<property name="connectionFactory" ref="connectionFactory" />
+		<property name="queue" ref="requestQueue" />
+        <!-- 
+        <property name="messageConverter" ref="mappingJackson2MessageConverter" />
+         -->
+	</bean>
+	
+	<bean id="mappingJackson2MessageConverter"
+          class="org.springframework.jms.support.converter.MappingJackson2MessageConverter" />
+
+</beans>
