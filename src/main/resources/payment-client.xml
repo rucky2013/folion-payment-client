@@ -33,12 +33,6 @@
 		<property name="serviceInterface" value="com.folionmedia.payment.server.api.PaymentService" />
 		<property name="connectionFactory" ref="connectionFactory" />
 		<property name="queue" ref="requestQueue" />
-        <!-- 
-        <property name="messageConverter" ref="mappingJackson2MessageConverter" />
-         -->
 	</bean>
-	
-	<bean id="mappingJackson2MessageConverter"
-          class="org.springframework.jms.support.converter.MappingJackson2MessageConverter" />
 
 </beans>
